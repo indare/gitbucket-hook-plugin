@@ -5,13 +5,13 @@ import play.twirl.sbt.Import.TwirlKeys._
 
 object MyBuild extends Build {
 
-  val Organization = "local.arino"
-  val Name = "gitbucket-test-plugin"
+  val Organization = "local.indare.gitbucket.plugin"
+  val Name = "gitbucket-hook-plugin"
   val Version = "0.0.1"
   val ScalaVersion = "2.11.7"
 
   lazy val project = Project (
-    "gitbucket-test-plugin",
+    "gitbucket-hook-plugin",
     file(".")
   )
     .settings(
