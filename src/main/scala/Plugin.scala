@@ -3,7 +3,7 @@ import javax.servlet.ServletContext
 import gitbucket.core.plugin.PluginRegistry
 import gitbucket.core.service.SystemSettingsService.SystemSettings
 import gitbucket.core.util.Version
-import local.indare.gitbucket.plugin.hook.controller.TestController
+import local.indare.gitbucket.plugin.hook.controller.HookController
 
 class Plugin extends gitbucket.core.plugin.Plugin {
   override val pluginId: String = "hook plugin"
@@ -31,7 +31,7 @@ class Plugin extends gitbucket.core.plugin.Plugin {
 
 
   override val controllers = Seq(
-    "/admin/hookscript" -> new TestController()
+    "/admin/hookscript" -> new HookController()
   )
 
 }

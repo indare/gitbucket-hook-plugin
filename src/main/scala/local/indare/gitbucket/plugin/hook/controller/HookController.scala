@@ -8,13 +8,13 @@ import jp.sf.amateras.scalatra.forms._
 import org.slf4j.LoggerFactory
 
 
-class TestController extends TestControllerBase
+class HookController extends HookControllerBase
 with AdminAuthenticator with RepositoryService
 
-trait TestControllerBase extends ControllerBase with AccountService with RepositoryService{
+trait HookControllerBase extends ControllerBase with AccountService with RepositoryService{
   self: AdminAuthenticator =>
 
-  private val logger = LoggerFactory.getLogger(classOf[TestController])
+  private val logger = LoggerFactory.getLogger(classOf[HookController])
 
   case class ScriptForm(hookname: String, script: String)
 
