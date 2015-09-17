@@ -1,30 +1,33 @@
 package local.indare.gitbucket.plugin.hook.controller
 
-import local.arino.test.html
+import local.indare.gitbucket.plugin.hook.html
 import gitbucket.core.controller.ControllerBase
-import gitbucket.core.service.{RepositoryService, AccountService}
+import gitbucket.core.service.{RepositoryService, AccountService, SystemSettingsService}
 import gitbucket.core.util.AdminAuthenticator
 import jp.sf.amateras.scalatra.forms._
 import org.slf4j.LoggerFactory
 
 
 class HookController extends HookControllerBase
-with AdminAuthenticator with RepositoryService
+with AdminAuthenticator with RepositoryService with AccountService
 
-trait HookControllerBase extends ControllerBase with AccountService with RepositoryService{
-  self: AdminAuthenticator =>
+trait HookControllerBase extends ControllerBase with RepositoryService{
+  self: AdminAuthenticator with RepositoryService with AccountService =>
 
   private val logger = LoggerFactory.getLogger(classOf[HookController])
 
-  case class ScriptForm(hookname: String, script: String)
+  case class ScriptForm(repo: String, hooktype: String, script: String)
 
   private val scriptForm = mapping(
-    "hookname" -> trim(label("Hook Name", text(required))),
-    "script" -> trim(label("Hook Script", text(required)))
+    "repo" -> trim(label("Repository", text(required))),
+    "hooktype" -> trim(label("Hook Type", text(required))),
+    "script" -> trim(label("Script", text(required)))
   )(ScriptForm.apply)
 
-  get("/admin/hookscript"){
-    html.test(flash.get("info"))
-  }
+  get("/admin/hook")(adminOnly {
+
+    html.hook(flash.get("info"))
+
+  })
 
 }

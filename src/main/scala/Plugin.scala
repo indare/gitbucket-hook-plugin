@@ -21,17 +21,22 @@ class Plugin extends gitbucket.core.plugin.Plugin {
     val path = settings.baseUrl.getOrElse(context.getContextPath)
 
     Seq(
-    ".*/settings/options" -> s"""
-                                |$$('.nav.nav-tabs.nav-stacked.side-menu>li:last').after(
-                                |  $$('<li><a href="${path}/admin/hookscript">Hook Scripts</a></li>')
-                                |);
+      ".*/admin/(?!hook).*" -> s"""
+                                      |$$('.nav.nav-tabs.nav-stacked.side-menu>li:last').after(
+                                      |  $$('<li><a href="${path}/admin/hook">Hook Scripts</a></li>')
+                                      |);
+      """.stripMargin,
+    ".*/admin/hook" -> s"""
+                                      |$$('.nav.nav-tabs.nav-stacked.side-menu>li:last').after(
+                                      |  $$('<li class="active"><a href="${path}/admin/hook">Hook Scripts</a></li>')
+                                      |);
       """.stripMargin
     )
   }
 
 
   override val controllers = Seq(
-    "/admin/hookscript" -> new HookController()
+    "/admin/hook" -> new HookController()
   )
 
 }
